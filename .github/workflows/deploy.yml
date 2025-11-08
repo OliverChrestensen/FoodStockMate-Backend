@@ -21,9 +21,10 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      # Bygger jar-filen med Maven, uden tests
+      # Bygger jar-filen med Maven i foodstockmate-mappen
       - name: Build JAR with Maven
         run: mvn clean package -DskipTests
+        working-directory: foodstockmate
 
       # Kopierer jar-filen til VPS via SCP
       - name: Copy JAR to VPS
@@ -32,7 +33,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          source: "target/foodstockmate-0.0.1-SNAPSHOT.jar"
+          source: "foodstockmate/target/foodstockmate-0.0.1-SNAPSHOT.jar"
           target: "/opt/docker/foodstockmate/foodstockmate-0.0.1-SNAPSHOT.jar"
 
       # Genstarter Docker-containeren på VPS via SSH
