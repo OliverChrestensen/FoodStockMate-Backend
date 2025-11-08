@@ -34,7 +34,8 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "foodstockmate/target/foodstockmate-0.0.1-SNAPSHOT.jar"
-          target: "/opt/docker/foodstockmate/foodstockmate-0.0.1-SNAPSHOT.jar"
+          target: "/opt/docker/foodstockmate/"
+          strip_components: 0
 
       # Genstarter Docker-containeren på VPS via SSH
       - name: Restart Docker container
